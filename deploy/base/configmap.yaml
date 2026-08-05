@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rag-common-config
+  namespace: rag-system
+data:
+  ENVIRONMENT: kind
+  LOG_LEVEL: INFO
+  OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector.observability.svc.cluster.local:4317
+  QDRANT_URL: http://qdrant:6333
+  # OpenRouter is OpenAI-compatible — point the SDK here
+  OPENAI_BASE_URL: https://openrouter.ai/api/v1
+  EMBEDDING_MODEL: openai/text-embedding-3-small
+  EMBEDDING_DIM: "1536"
+  DEFAULT_LLM_PROVIDER: openai
+  RETRIEVAL_SERVICE_URL: http://retrieval-service:8000
+  LLM_GATEWAY_URL: http://llm-gateway:8000
+  ORCHESTRATOR_URL: http://rag-orchestrator:8000
+  INGESTION_URL: http://ingestion-service:8000

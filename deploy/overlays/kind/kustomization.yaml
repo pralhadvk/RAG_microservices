@@ -1,0 +1,33 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base
+images:
+  - name: rag-api-gateway
+    newTag: latest
+  - name: rag-orchestrator
+    newName: rag-orchestrator
+    newTag: latest
+  - name: rag-ingestion-service
+    newTag: latest
+  - name: rag-retrieval-service
+    newTag: latest
+  - name: rag-llm-gateway
+    newTag: latest
+  - name: rag-chat-ui
+    newTag: latest
+patches:
+  - target:
+      kind: Deployment
+      name: api-gateway
+    patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 1
+  - target:
+      kind: Deployment
+      name: rag-orchestrator
+    patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 1

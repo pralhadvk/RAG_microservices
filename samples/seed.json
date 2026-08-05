@@ -1,0 +1,27 @@
+{
+  "collection_id": "docs-v1",
+  "chunk_size": 400,
+  "chunk_overlap": 50,
+  "documents": [
+    {
+      "text": "Refund Policy: Customers may request a full refund within 30 days of purchase. Refunds are processed within 5-7 business days. Digital goods are only refundable if unused. Contact support@example.com to start a refund.",
+      "metadata": {"source": "refund-policy.md", "category": "policy"}
+    },
+    {
+      "text": "Shipping Policy: Standard shipping takes 3-5 business days within the continental US. Express shipping is 1-2 business days. International orders ship within 7-14 business days. Free shipping on orders over $50.",
+      "metadata": {"source": "shipping-policy.md", "category": "policy"}
+    },
+    {
+      "text": "Product Warranty: All hardware products include a 1-year limited warranty covering manufacturing defects. Accidental damage is not covered. Extended warranties of 2 or 3 years can be purchased at checkout.",
+      "metadata": {"source": "warranty.md", "category": "policy"}
+    },
+    {
+      "text": "MLOps Tip: Always route LLM calls through an in-cluster gateway so you can swap providers, observe token usage, and apply rate limits without changing application code.",
+      "metadata": {"source": "mlops-notes.md", "category": "learning"}
+    },
+    {
+      "text": "Kubernetes Tip: Use readiness probes so traffic only reaches healthy pods. Horizontal Pod Autoscalers scale Deployments based on CPU or custom metrics.",
+      "metadata": {"source": "k8s-notes.md", "category": "learning"}
+    }
+  ]
+}

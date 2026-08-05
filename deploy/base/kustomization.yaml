@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: rag-system
+resources:
+  - namespace.yaml
+  - configmap.yaml
+  - qdrant/qdrant.yaml
+  - retrieval-service/deployment.yaml
+  - ingestion-service/deployment.yaml
+  - llm-gateway/deployment.yaml
+  - rag-orchestrator/deployment.yaml
+  - api-gateway/deployment.yaml
+  - chat-ui/deployment.yaml
+  - ingress.yaml
