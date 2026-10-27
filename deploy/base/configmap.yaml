@@ -7,7 +7,9 @@ data:
   ENVIRONMENT: kind
   LOG_LEVEL: INFO
   OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector.observability.svc.cluster.local:4317
-  QDRANT_URL: http://qdrant:6333
+  WEAVIATE_HOST: weaviate
+  WEAVIATE_HTTP_PORT: "8080"
+  WEAVIATE_GRPC_PORT: "50051"
   # OpenRouter is OpenAI-compatible — point the SDK here
   OPENAI_BASE_URL: https://openrouter.ai/api/v1
   EMBEDDING_MODEL: openai/text-embedding-3-small

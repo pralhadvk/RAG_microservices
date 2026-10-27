@@ -63,6 +63,7 @@ deploy:
 	@echo "Deployed. Run 'make wait-ready' then 'make seed'."
 
 wait-ready:
+	kubectl -n $(NAMESPACE) rollout status statefulset/weaviate --timeout=180s || true
 	kubectl -n $(NAMESPACE) wait --for=condition=available --timeout=180s deployment --all || true
 	kubectl -n $(OBS_NAMESPACE) wait --for=condition=available --timeout=180s deployment --all || true
 	@echo "Pods:"

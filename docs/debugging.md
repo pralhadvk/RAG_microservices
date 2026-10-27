@@ -56,7 +56,7 @@ Click each span and inspect **Tags** for `rag.*` attributes.
 |---------|--------------|-----|
 | Ingress 404 | ingress-nginx not ready | `kubectl -n ingress-nginx get pods` |
 | 503 from gateway | Downstream CrashLoop | `kubectl describe pod` + logs |
-| retrieval not ready | Qdrant still starting | Wait; check `kubectl logs -l app=qdrant` |
+| retrieval not ready | Weaviate still starting | Wait; check `kubectl -n rag-system logs -l app=weaviate` |
 | llm-gateway 503 | Missing API key | `make secrets` after fixing `.env` |
 | Empty answers / no chunks | Forgot seed | `make seed` |
 | ImagePullBackOff | Image not loaded into kind | `make build && make load` |
@@ -78,9 +78,14 @@ kubectl -n rag-system rollout restart deployment/llm-gateway
 kubectl -n rag-system rollout status deployment/llm-gateway
 ```
 
-## Verify Qdrant connectivity
+## Verify Weaviate connectivity
 
 ```bash
+# Readiness and server version
 kubectl -n rag-system run curl --rm -it --image=curlimages/curl --restart=Never -- \
-  curl -s http://qdrant:6333/collections
+  curl -s http://weaviate:8080/v1/meta
+
+# List collections (docs-v1 is stored as Rag_docs_v1)
+kubectl -n rag-system run curl --rm -it --image=curlimages/curl --restart=Never -- \
+  curl -s http://weaviate:8080/v1/schema
 ```

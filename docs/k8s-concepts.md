@@ -16,7 +16,8 @@ This document maps each K8s primitive to a concrete file so you can learn by rea
 | Kustomize | `deploy/base` + `deploy/overlays/kind` | Base vs environment overlay |
 | kind | `kind/cluster.yaml` | Local multi-node cluster, host ports 80/443 |
 | metrics-server | `scripts/setup-kind.sh` | Required for HPA metrics |
-| Stateful vs stateless | Qdrant vs app services | Only Qdrant holds durable state (MVP: emptyDir) |
+| StatefulSet + PVC | `deploy/base/weaviate/weaviate.yaml` | Weaviate keeps its volume and identity across restarts |
+| Stateful vs stateless | Weaviate vs app services | Only Weaviate holds durable state (1Gi PVC) |
 
 ## Mental model: how a request is routed
 
