@@ -7,9 +7,9 @@ that routes to external providers (OpenAI / Anthropic).
 ## Architecture
 
 ```
-Client → Ingress → api-gateway → rag-orchestrator → retrieval-service → Qdrant
+Client → Ingress → api-gateway → rag-orchestrator → retrieval-service → Weaviate
                                  └───────────────→ llm-gateway → OpenAI/Anthropic
-                 └────────────→ ingestion-service → retrieval-service → Qdrant
+                 └────────────→ ingestion-service → retrieval-service → Weaviate
 
 All services → OTEL Collector → Jaeger (traces) + Prometheus (metrics) → Grafana
 ```
@@ -85,10 +85,10 @@ See [docs/debugging.md](docs/debugging.md) for more.
 | api-gateway | Yes (Ingress) | Validation, request IDs, baggage |
 | rag-orchestrator | Internal | Retrieve → augment → generate |
 | ingestion-service | Via gateway | Chunk + embed + upsert |
-| retrieval-service | Internal | Embeddings + Qdrant search |
+| retrieval-service | Internal | Embeddings + Weaviate vector search |
 | llm-gateway | Internal only | Provider routing, retries, token metrics |
 | chat-ui | Yes (`/`) | Browser chat UI with citations |
-| qdrant | Internal | Vector store |
+| weaviate | Internal | Vector store (StatefulSet, 1Gi PVC; REST 8080, gRPC 50051) |
 
 ## Scaling
 
@@ -117,6 +117,15 @@ docs/              # Learning guides
 - [Architecture](docs/architecture.md)
 - [Debugging](docs/debugging.md)
 - [Kubernetes concepts practiced here](docs/k8s-concepts.md)
+
+## Tests
+
+Retrieval-service unit tests mock Weaviate and the embeddings API, so they run without a cluster:
+
+```bash
+pip install -r services/retrieval-service/requirements.txt pytest
+PYTHONPATH=shared:services/retrieval-service pytest services/retrieval-service/tests
+```
 
 ## Teardown
 

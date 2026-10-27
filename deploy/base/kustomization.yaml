@@ -4,7 +4,7 @@ namespace: rag-system
 resources:
   - namespace.yaml
   - configmap.yaml
-  - qdrant/qdrant.yaml
+  - weaviate/weaviate.yaml
   - retrieval-service/deployment.yaml
   - ingestion-service/deployment.yaml
   - llm-gateway/deployment.yaml
